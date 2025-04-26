@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Types.ObjectId;
 console.log("are u connected")
-mongoose.connect("mongodb+srv://krishnasahuwork:krishna22032003k$@cluster0.gygsits.mongodb.net/course-app")
+mongoose.connect(process.env.MONGO_URL)
 // ✅ Define user schema
 const userSchema = new Schema({
   email: { type: String, unique: true },
