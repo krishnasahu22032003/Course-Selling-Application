@@ -10,8 +10,8 @@ function adminmiddleware(req, res, next) {
 
   try {
     const decodedtoken = jwt.verify(token, JWT_ADMIN_SECRET);
-    req.userId = decodedtoken.id; // ✅ assign properly
-    next(); // ✅ go to next route
+    req.userId = decodedtoken.id; 
+    next(); // ✅ 
   } catch (error) {
     res.status(403).json({ message: "Invalid or expired token" });
   }

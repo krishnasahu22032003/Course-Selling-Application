@@ -27,11 +27,12 @@ adminRouter.post('/signup', async function (req, res) {
     const password = req.body.password
     const firstName = req.body.firstName
     const lastName = req.body.lastName
+ 
     let thorwnerror = false
     try {
         const hashedpassword = await bcrypt.hash(password, 5)
-        console.log(hashedpassword)
-        await adminModel.create({
+     
+      await adminModel.create({
             email: email,
             password: hashedpassword,
             firstName: firstName,
@@ -91,7 +92,7 @@ adminRouter.post('/create-course', adminmiddleware, async function (req, res) {
         description: description,
         imageUrl: imageUrl,
         price: price,
-        creatorId: adminId
+        creatorID: adminId
     })
 
     res.json({
@@ -99,35 +100,36 @@ adminRouter.post('/create-course', adminmiddleware, async function (req, res) {
         courseId: course._id
     })
 })
-adminRouter.put('/update-course',adminmiddleware , async function (req, res) {
-    const adminid=req.userId
-    const { title, description, price, imageUrl ,courseId } = req.body
-    const course = await courseModel.updateOne({
-        _id:courseId,
-        creatorId:adminid
+adminRouter.put("/update-course", adminmiddleware, async function(req, res) {
+    const adminId = req.userId;
 
-    },{
-        title: title,
-        description: description,
-        imageUrl: imageUrl,
+    const { title, description, imageUrl, price, courseId } = req.body;
+
+    // creating a web3 saas in 6 hours
+    const course = await courseModel.updateOne({
+        _id: courseId, 
+        creatorID:adminId
+       
+    }, {
+        title: title, 
+        description: description, 
+        imageUrl: imageUrl, 
         price: price,
-        courseId:courseId
+       courseId:courseId
     })
-    if (!course) {
-        return res.status(404).json({ msg: "Course not found or unauthorized" });
-    }
 
     res.json({
         message: "Course updated",
-        courseId: course._id
+        courseId:course._id
     })
-
 })
+
 adminRouter.get('/course-content',adminmiddleware,async function (req, res) {
     const adminId = req.userId;
 
     const courses = await courseModel.find({
-        creatorId: adminId 
+     
+        creatorID: adminId 
     });
 
     res.json({

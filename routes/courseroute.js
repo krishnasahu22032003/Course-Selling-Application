@@ -12,7 +12,7 @@ await purchaseModel.create({
 
 res.json({
 
-    msg:"yoy have successfully bougth the course"
+    msg:"you have successfully bougth the course"
 })
 })
 courserouter.get('/preview',async function(req,res){
